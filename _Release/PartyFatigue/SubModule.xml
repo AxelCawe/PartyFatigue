@@ -1,0 +1,27 @@
+<Module>
+	<Name value="PartyFatigue"/>
+	<Id value="PartyFatigue"/>
+	<Version value="v1.0.0"/>
+	<SingleplayerModule value="true"/>
+  <MultiplayerModule value="false"/>
+  <DependedModules>
+    <DependedModule Id="Native" />
+    <DependedModule Id="SandBoxCore" />
+    <DependedModule Id="Sandbox" />
+    <DependedModule Id="CustomBattle" />
+    <DependedModule Id="StoryMode" />
+    <DependedModule Id="Bannerlord.Harmony" />
+    <DependedModule Id="Bannerlord.MBOptionScreen"/>
+  </DependedModules>
+  <SubModules>
+	<SubModule>
+             <Name value="PartyFatigue"/>
+             <DLLName value="PartyFatigue.dll"/>
+             <SubModuleClassType value="PartyFatigue.SubModule"/>
+             <Tags>
+                 <Tag key="DedicatedServerType" value="none" />
+                 <Tag key="IsNoRenderModeElement" value="false" />
+             </Tags>
+         </SubModule>
+  </SubModules>
+</Module>

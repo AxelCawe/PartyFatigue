@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyFatigue.Behaviours
 {
@@ -39,7 +40,9 @@ namespace PartyFatigue.Behaviours
 
                 if (party.Key == Campaign.Current.MainParty && party.Key.CurrentSettlement != null)
                 {
-                    InformationManager.DisplayMessage(new InformationMessage($"Party Fatigue: {party.Value.currentFatigue}"));
+                    TextObject textObject = new TextObject("{=PartyFatigueInTownNotifcation}Party Fatigue: {CURRENT_FATIGUE}");
+                    textObject.SetTextVariable("CURRENT_FATIGUE", party.Value.currentFatigue);
+                    InformationManager.DisplayMessage(new InformationMessage(textObject.ToString()));
                 }
             }
         }

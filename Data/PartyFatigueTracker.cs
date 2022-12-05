@@ -65,6 +65,8 @@ namespace PartyFatigue.Data
         {
             PartyVisual partyVisuals = (PartyVisual)party.Visuals;
             GameEntity strategicEntity = partyVisuals.StrategicEntity;
+            if (strategicEntity == null)
+                return;
             if (showTent)
             {
                 bool currentlyBusy = party.MobileParty.CurrentSettlement != null || party.MapEvent != null || party.SiegeEvent != null;
@@ -98,6 +100,8 @@ namespace PartyFatigue.Data
                     }
                     MatrixFrame matrix = MatrixFrame.Identity;
                     matrix.rotation.ApplyScaleLocal(1.2f);
+                    if (strategicEntity.Scene == null)
+                        return;
                     GameEntity gameEntity = GameEntity.CreateEmpty(strategicEntity.Scene, true);
                     gameEntity.Name = "Tent";
                     gameEntity.AddMultiMesh(MetaMesh.GetCopy("map_icon_siege_camp_tent", true, false), true);

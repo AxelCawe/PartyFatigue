@@ -40,7 +40,8 @@ namespace PartyFatigue
             starter.AddBehavior(new ModSaveBehaviour());
             starter.AddBehavior(new HourlyTickBehaviour());
             starter.AddBehavior(new FatigueUpdateBehaviour());
-            starter.AddBehavior(new AiRestingBehaviour());  
+            starter.AddBehavior(new AiRestingBehaviour());
+            starter.AddBehavior(new PlayerRestingBehaviour());
         }
 
         private void Initialize(Game game, IGameStarter gameStarter)

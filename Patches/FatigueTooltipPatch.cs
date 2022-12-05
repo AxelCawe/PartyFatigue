@@ -11,6 +11,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.ViewModelCollection;
 using TaleWorlds.Core;
 using TaleWorlds.Core.ViewModelCollection.Information;
+using TaleWorlds.Localization;
 using static TaleWorlds.MountAndBlade.CompressionInfo;
 
 namespace PartyFatigue.Patches
@@ -26,13 +27,20 @@ namespace PartyFatigue.Patches
                 if (PartyFatigueTracker.Current.partyFatigueData.ContainsKey(mobileParty)) 
                 {
                     PartyFatigueData data = PartyFatigueTracker.Current.partyFatigueData[mobileParty];
+                    TextObject textFatigue = new TextObject("{=TooltipFatigueStat}Fatigue");
+                    
                     if (!propertyBasedTooltipVM.IsExtended)
-                        propertyBasedTooltipVM.AddProperty("Fatigue", ModCalculations.GetFatigueStatus(data.currentFatigue) + " (" + data.currentFatigue.ToString() + ")", 0);
+                        propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(data.currentFatigue) + " (" + data.currentFatigue.ToString() + ")", 0);
                     else
-                        propertyBasedTooltipVM.AddProperty("Fatigue", ModCalculations.GetFatigueStatus(data.currentFatigue), 0);
-
+                        propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(data.currentFatigue), 0);
+               
                     if (data.needReset && checkForMapVisibility)
-                        propertyBasedTooltipVM.AddProperty("Sleeping", ModCalculations.CalculateSleepHours(mobileParty, 1f).ToString() + " hours left", 0);
+                    {
+                        TextObject textSleeping = new TextObject("{=TooltipSleepingStat}Sleeping");
+                        TextObject textSleepingHours = new TextObject("{=TooltipSleepingStatValue}{SLEEPING_HOURS} hours left");
+                        textSleepingHours.SetTextVariable("SLEEPING_HOURS", ModCalculations.CalculateSleepHours(mobileParty, 1f).ToString());
+                        propertyBasedTooltipVM.AddProperty(textSleeping.ToString(), textSleepingHours.ToString(), 0);
+                    }
                 }        
             }
         }
@@ -61,15 +69,20 @@ namespace PartyFatigue.Patches
                     }
                     armyFatigueRate /= subPartyCount + 1; //adding leader
 
-
                     PartyFatigueData data = PartyFatigueTracker.Current.partyFatigueData[leaderParty];
+                    TextObject textFatigue = new TextObject("{=TooltipFatigueStat}Fatigue");
                     if (!propertyBasedTooltipVM.IsExtended)
-                        propertyBasedTooltipVM.AddProperty("Fatigue", ModCalculations.GetFatigueStatus(armyFatigueRate) + " (" + armyFatigueRate.ToString() + ")", 0);
+                        propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(armyFatigueRate) + " (" + armyFatigueRate.ToString() + ")", 0);
                     else
-                        propertyBasedTooltipVM.AddProperty("Fatigue", ModCalculations.GetFatigueStatus(armyFatigueRate), 0);
-
+                        propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(armyFatigueRate), 0);
+                    
                     if (data.needResetArmy && checkForMapVisibility)
-                        propertyBasedTooltipVM.AddProperty("Sleeping", ModCalculations.CalculateSleepHours(leaderParty, 1f).ToString() + " hours left", 0);
+                    {
+                        TextObject textSleeping = new TextObject("{=TooltipSleepingStat}Sleeping");
+                        TextObject textSleepingHours = new TextObject("{=TooltipSleepingStatValue}{SLEEPING_HOURS} hours left");
+                        textSleepingHours.SetTextVariable("SLEEPING_HOURS", ModCalculations.CalculateSleepHours(leaderParty, 1f).ToString());
+                        propertyBasedTooltipVM.AddProperty(textSleeping.ToString(), textSleepingHours.ToString(), 0);
+                    }
                 }
             }
                 

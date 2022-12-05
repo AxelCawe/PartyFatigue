@@ -11,6 +11,7 @@ using TaleWorlds.CampaignSystem.Party;
 using TaleWorlds.CampaignSystem.Roster;
 using TaleWorlds.Core;
 using TaleWorlds.Library;
+using TaleWorlds.Localization;
 
 namespace PartyFatigue.Helpers
 {
@@ -196,19 +197,23 @@ namespace PartyFatigue.Helpers
         {
             if (rate > GlobalModSettings.excitedFatigue)
             {
-                return "Excited";
+                TextObject text= new TextObject("{=TooltipFatigueStatValue_ExcitedFatigue}Excited");
+                return text.ToString();
             }
             else if (rate > GlobalModSettings.normalFatigue)
             {
-                return "Normal";
+                TextObject text = new TextObject("{=TooltipFatigueStatValue_NormalFatigue}Normal");
+                return text.ToString();
             }
             else if (rate > GlobalModSettings.tiredFatigue)
             {
-                return "Tired";
+                TextObject text = new TextObject("{=TooltipFatigueStatValue_TiredFatigue}Tired");
+                return text.ToString();
             }
             else
             {
-                return "Near collapse";
+                TextObject text = new TextObject("{=TooltipFatigueStatValue_NearCollapseFatigue}Near Collapse");
+                return text.ToString();
             }
         }
     }

@@ -87,12 +87,16 @@
     <Reference Include="TaleWorlds.SaveSystem">
       <HintPath>..\..\..\..\..\GOG Games\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.SaveSystem.dll</HintPath>
     </Reference>
+    <Reference Include="TaleWorlds.ScreenSystem">
+      <HintPath>..\..\..\..\..\GOG Games\Mount &amp; Blade II Bannerlord\bin\Win64_Shipping_Client\TaleWorlds.ScreenSystem.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Behaviours\AiRestingBehaviour.cs" />
     <Compile Include="Behaviours\FatigueUpdateBehaviour.cs" />
     <Compile Include="Behaviours\HourlyTickBehaviour.cs" />
     <Compile Include="Behaviours\ModSaveBehaviour.cs" />
+    <Compile Include="Behaviours\PlayerRestingBehaviour.cs" />
     <Compile Include="Data\PartyFatigueData.cs" />
     <Compile Include="Data\PartyFatigueTracker.cs" />
     <Compile Include="Data\PartyFatigueSaveType.cs" />

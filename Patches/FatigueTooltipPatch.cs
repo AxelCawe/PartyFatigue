@@ -30,7 +30,7 @@ namespace PartyFatigue.Patches
                     TextObject textFatigue = new TextObject("{=TooltipFatigueStat}Fatigue");
                     
                     if (!propertyBasedTooltipVM.IsExtended)
-                        propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(data.currentFatigue) + " (" + data.currentFatigue.ToString() + ")", 0);
+                        propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(data.currentFatigue) + " (" + data.currentFatigue.ToString("0.00") + ")", 0);
                     else
                         propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(data.currentFatigue), 0);
                
@@ -72,7 +72,7 @@ namespace PartyFatigue.Patches
                     PartyFatigueData data = PartyFatigueTracker.Current.partyFatigueData[leaderParty];
                     TextObject textFatigue = new TextObject("{=TooltipFatigueStat}Fatigue");
                     if (!propertyBasedTooltipVM.IsExtended)
-                        propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(armyFatigueRate) + " (" + armyFatigueRate.ToString() + ")", 0);
+                        propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(armyFatigueRate) + " (" + armyFatigueRate.ToString("0.00") + ")", 0);
                     else
                         propertyBasedTooltipVM.AddProperty(textFatigue.ToString(), ModCalculations.GetFatigueStatus(armyFatigueRate), 0);
                     

@@ -103,6 +103,7 @@
     <Compile Include="Helpers\ModCalculations.cs" />
     <Compile Include="Models\PartyFatigueSpeedModel.cs" />
     <Compile Include="Patches\FatigueTooltipPatch.cs" />
+    <Compile Include="Patches\PartySpeedPatch.cs" />
     <Compile Include="Settings\GlobalModSettings.cs" />
     <Compile Include="Settings\ISettingVariables.cs" />
     <Compile Include="Settings\MCMSettings.cs" />

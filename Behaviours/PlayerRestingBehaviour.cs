@@ -26,21 +26,25 @@ namespace PartyFatigue.Behaviours
         void OnTick(float tick)
         {
             MobileParty playerParty = Campaign.Current.MainParty;
-            if (playerParty.Army != null) // if player is in army
+            if (PartyFatigueTracker.Current.partyFatigueData != null && PartyFatigueTracker.Current.partyFatigueData.ContainsKey(playerParty))
             {
-                if (playerParty.Army.LeaderParty == playerParty) // if player is leading the army
+                if (playerParty.Army != null) // if player is in army
                 {
-                    foreach (MobileParty mobileParty in playerParty.Army.LeaderPartyAndAttachedParties)
+                    if (playerParty.Army.LeaderParty == playerParty) // if player is leading the army
                     {
-                        if (mobileParty.DefaultBehavior == AiBehavior.JoinParty)
-                            PartyFatigueTracker.ToggleTent(mobileParty.Party, false);
-                        else
-                            PartyFatigueTracker.ToggleTent(mobileParty.Party, !ModCalculations.IsPartyMoving(playerParty));
+                        foreach (MobileParty mobileParty in playerParty.Army.LeaderPartyAndAttachedParties)
+                        {
+                            if (mobileParty.DefaultBehavior == AiBehavior.JoinParty)
+                                PartyFatigueTracker.ToggleTent(mobileParty.Party, false);
+                            else
+                                PartyFatigueTracker.ToggleTent(mobileParty.Party, !ModCalculations.IsPartyMoving(playerParty));
+                        }
                     }
                 }
+                else
+                    PartyFatigueTracker.ToggleTent(playerParty.Party, !ModCalculations.IsPartyMoving(playerParty));
             }
-            else
-                PartyFatigueTracker.ToggleTent(playerParty.Party, !ModCalculations.IsPartyMoving(playerParty));
+           
         }
 
     }

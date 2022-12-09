@@ -73,7 +73,7 @@ namespace PartyFatigue.Helpers
             float settlementBonus = mobileParty.CurrentSettlement != null ? GlobalSettings<MCMSettings>.Instance.SettlementRecoveryBonus : 1f;
             //if (party.Key.IsMainParty)
             {
-                if (mobileParty.LeaderHero == null)
+                if (mobileParty.LeaderHero == null || mobileParty.IsCaravan)
                 {
                     if (mobileParty.DefaultBehavior == AiBehavior.FleeToPoint || mobileParty.DefaultBehavior == AiBehavior.FleeToParty || mobileParty.DefaultBehavior == AiBehavior.FleeToGate
                         || mobileParty.ShortTermBehavior == AiBehavior.FleeToPoint || mobileParty.ShortTermBehavior == AiBehavior.FleeToParty || mobileParty.ShortTermBehavior == AiBehavior.FleeToGate)
@@ -132,7 +132,7 @@ namespace PartyFatigue.Helpers
             float currentFatigue = data.currentFatigue;
             if (currentFatigue >= GlobalModSettings.excitedFatigue)
             {
-                return 1.1f;
+                return 1.25f;
             }
             else if (currentFatigue >= GlobalModSettings.normalFatigue)
             {
@@ -154,9 +154,14 @@ namespace PartyFatigue.Helpers
 
         public static bool IsPartyMoving(MobileParty party)
         {
-            bool flag_busy = PartyFatigueTracker.Current.partyFatigueData.ContainsKey(party) ? PartyFatigueTracker.Current.partyFatigueData[party].isBusy : false;
-            return !(party.DefaultBehavior == AiBehavior.Hold || party.DefaultBehavior == AiBehavior.BesiegeSettlement || party.DefaultBehavior == AiBehavior.RaidSettlement
-                          || (party.Position2D - party.TargetPosition).Length < 1E-8f || !party.IsMoving) && (!flag_busy);
+            if (party.Army == null)
+            {
+
+                return party.IsMoving && party.DefaultBehavior != AiBehavior.None && !PartyFatigueTracker.Current.partyFatigueData[party].needReset;
+            }
+            else
+                return party.IsMoving && party.DefaultBehavior != AiBehavior.None && !PartyFatigueTracker.Current.partyFatigueData[party].needResetArmy;
+
         }
 
         public static int CalculateSleepHours(MobileParty party, float recoverToPercent = 0.8f)

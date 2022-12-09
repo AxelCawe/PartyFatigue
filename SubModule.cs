@@ -16,7 +16,7 @@ namespace PartyFatigue
 {
     public class SubModule : MBSubModuleBase
     {
-
+        private static bool PatchesApplied = false;
         protected override void InitializeGameStarter(Game game, IGameStarter starterObject)
         {
             base.OnGameStart(game, starterObject);
@@ -25,9 +25,17 @@ namespace PartyFatigue
         protected override void OnSubModuleLoad()
         {
             base.OnSubModuleLoad();
-            new Harmony("PartyFatigue").PatchAll(Assembly.GetExecutingAssembly());
+            //new Harmony("PartyFatigue").PatchAll(Assembly.GetExecutingAssembly());
 
             PartyFatigueTracker.Current = PartyFatigueTracker.Current;
+        }
+
+        public override void OnGameInitializationFinished(Game game)
+        {
+            if (SubModule.PatchesApplied)
+                return;
+            new Harmony("PartyFatigue").PatchAll();
+            SubModule.PatchesApplied = true;
         }
 
         private void AddBehaviours(CampaignGameStarter starter)
@@ -38,8 +46,8 @@ namespace PartyFatigue
             }
 
             starter.AddBehavior(new ModSaveBehaviour());
-            starter.AddBehavior(new HourlyTickBehaviour());
             starter.AddBehavior(new FatigueUpdateBehaviour());
+            starter.AddBehavior(new HourlyTickBehaviour());
             starter.AddBehavior(new AiRestingBehaviour());
             starter.AddBehavior(new PlayerRestingBehaviour());
         }
@@ -56,7 +64,7 @@ namespace PartyFatigue
             IList<GameModel> models = gameStarter.Models as IList<GameModel>;
             if (models != null)
             {
-                gameStarter.AddModel(new PartyFatigueSpeedModel());
+                //gameStarter.AddModel(new PartyFatigueSpeedModel());
             }
         }
 

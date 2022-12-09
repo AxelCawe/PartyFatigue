@@ -14,7 +14,9 @@
 	  <string id="TooltipSleepingStat" 					text="Sleeping" />
 	  <string id="TooltipSleepingStatValue" 				text="{SLEEPING_HOURS} hours left" />
 		
-	
+	  <string id="SpeedTooltip_SpeedBoost"				text="Party Fatigue Boost" />
+
+
 	  <string id="PartyFatigueInTownNotifcation" 			text="Party Fatigue: {CURRENT_FATIGUE}" />
 
 

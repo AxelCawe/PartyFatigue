@@ -16,6 +16,7 @@ namespace PartyFatigue.Behaviours
         public override void RegisterEvents()
         {
             //CampaignEvents.OnGameEarlyLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(OnGameLoad));
+            CampaignEvents.OnGameLoadedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(OnGameLoad));
             CampaignEvents.MobilePartyCreated.AddNonSerializedListener(this, new Action<MobileParty>(OnNewMobileParty));
             CampaignEvents.OnPartyRemovedEvent.AddNonSerializedListener(this, new Action<PartyBase>(OnPartyRemove));
             CampaignEvents.OnNewGameCreatedEvent.AddNonSerializedListener(this, new Action<CampaignGameStarter>(OnNewGame));
@@ -31,9 +32,9 @@ namespace PartyFatigue.Behaviours
 
         void OnGameLoad(CampaignGameStarter gameStarter)
         {
-            foreach (var party in PartyFatigueTracker.Current.partyFatigueData) 
+            if (PartyFatigueTracker.Current.partyFatigueData == null)
             {
-                party.Value.currentFatigue = ModCalculations.CalculateFatigueRate(party.Key);
+                OnNewGame(gameStarter);
             }
         }
 

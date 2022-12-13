@@ -160,7 +160,7 @@ namespace PartyFatigue.Helpers
                 return party.IsMoving && party.DefaultBehavior != AiBehavior.None && !PartyFatigueTracker.Current.partyFatigueData[party].needReset;
             }
             else
-                return party.IsMoving && party.DefaultBehavior != AiBehavior.None && !PartyFatigueTracker.Current.partyFatigueData[party].needResetArmy;
+                return party.IsMoving && party.DefaultBehavior != AiBehavior.None && !PartyFatigueTracker.Current.partyFatigueData[party].needResetArmy && party.Army.AIBehavior != Army.AIBehaviorFlags.Besieging;
 
         }
 

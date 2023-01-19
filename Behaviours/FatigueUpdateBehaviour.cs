@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.Party;
+using TaleWorlds.Core;
 using TaleWorlds.Library;
 
 namespace PartyFatigue.Behaviours
@@ -32,7 +33,7 @@ namespace PartyFatigue.Behaviours
 
         void OnGameLoad(CampaignGameStarter gameStarter)
         {
-            if (PartyFatigueTracker.Current.partyFatigueData == null)
+            if (PartyFatigueTracker.Current.partyFatigueData == null || PartyFatigueTracker.Current.partyFatigueData.IsEmpty())
             {
                 OnNewGame(gameStarter);
             }
